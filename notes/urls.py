@@ -22,15 +22,13 @@ from users.views import UserAPIView
 
 router = DefaultRouter()
 
-router.register('project',ProjectModelViewSet)
+router.register('projects',ProjectModelViewSet)
 
-router.register('todo',TodoModelViewSet)
+router.register('todos',TodoModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('',include(router.urls)),
-    path('user/', UserAPIView.as_view()),
-
-
+    path('users/', UserAPIView.as_view()),
 ]

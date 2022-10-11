@@ -1,36 +1,50 @@
-
-
 import React from "react";
 import {
-Box,
-Container,
-Row,
-Column,
-Heading,
+    Box,
+    Container,
+    Row,
+    Column,
+    Heading,
 } from "./MenuStyle";
+import {BrowserRouter, Link} from "react-router-dom";
 
 export const Menu = () => {
-return (
-	<Box>
+    return (
+        <Box>
 
-	<Container>
-		<Row>
-		<Column>
-			<Heading>UserName</Heading>
+            <Container>
+                <Row>
+                    <Column>
 
-		</Column>
-		<Column>
-			<Heading>Group</Heading>
+                        <BrowserRouter>
+                            <nav>
+                                 <Heading><Link to='/users'>Users</Link></Heading>
 
-		</Column>
-		<Column>
-			<Heading>Type</Heading>
+                            </nav>
+                        </BrowserRouter>
+                    </Column>
+                    <Column>
+                        <BrowserRouter>
+                            <nav>
+                                 <Heading><Link to='/projects'>Projects</Link></Heading>
 
-		</Column>
+                            </nav>
+                        </BrowserRouter>
 
-		</Row>
-	</Container>
+                    </Column>
+                    <Column>
+                        <BrowserRouter>
+                            <nav>
+                                 <Heading><Link to='/todos'>Todo</Link></Heading>
 
-	</Box>
-);
+                            </nav>
+                        </BrowserRouter>
+
+                    </Column>
+
+                </Row>
+            </Container>
+
+        </Box>
+    );
 };
