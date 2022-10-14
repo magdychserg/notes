@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 
 from todo.views import TodoModelViewSet, ProjectModelViewSet
@@ -22,13 +23,14 @@ from users.views import UserAPIView
 
 router = DefaultRouter()
 
-router.register('projects',ProjectModelViewSet)
+router.register('projects', ProjectModelViewSet)
 
-router.register('todos',TodoModelViewSet)
+router.register('todos', TodoModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('',include(router.urls)),
+    path('', include(router.urls)),
     path('users/', UserAPIView.as_view()),
+    path('api-token-auth/', obtain_auth_token)
 ]

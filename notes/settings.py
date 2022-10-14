@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'todo',
     'django_filters',
+    'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -143,4 +145,12 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
         # Any other parsers
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissions'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
+    ],
 }
