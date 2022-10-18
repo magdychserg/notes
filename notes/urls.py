@@ -17,20 +17,23 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from todo.views import TodoModelViewSet, ProjectModelViewSet
+from todo.views import ProjectViewSet, ToDoViewSet
 from users.views import UserAPIView
 
 router = DefaultRouter()
 
-router.register('projects', ProjectModelViewSet)
+router.register('projects', ProjectViewSet)
 
-router.register('todos', TodoModelViewSet)
+router.register('todos', ToDoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('', include(router.urls)),
     path('users/', UserAPIView.as_view()),
-    path('api-token-auth/', obtain_auth_token)
+    path('api-token-auth/', obtain_auth_token),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

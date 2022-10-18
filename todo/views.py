@@ -2,38 +2,49 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import status
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from todo.filters import ProjectFilter, ToDoFilter
-from todo.models import Project, Todo
-from todo.serializers import ProjectModelSerializer, TodoModelSerializer
-
-class ProjectLimitOffsetPagination(LimitOffsetPagination):
-   default_limit = 10
+from todo.models import Project, ToDo
+from todo.serializers import TodoModelSerializer, ProjectModelSerializer
 
 
-class TodoLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 20
+class ProjectPagination(PageNumberPagination):
+    page_size = 10
 
-class ProjectModelViewSet(ModelViewSet):
 
-    queryset = Project.objects.all()
+class ProjectViewSet(ModelViewSet):
     serializer_class = ProjectModelSerializer
-    filterset_class = ProjectFilter
-    pagination_class = ProjectLimitOffsetPagination
+    queryset = Project.objects.all()
+    # pagination_class = ProjectPagination
+
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        name = self.request.query_params.get('name', None)
+        if name:
+            queryset = queryset.filter(name__contains=name)
+        return queryset
 
 
+class ToDoPagination(PageNumberPagination):
+    page_size = 20
 
-class TodoModelViewSet(ModelViewSet):
-    queryset = Todo.objects.all()
+
+class ToDoViewSet(ModelViewSet):
     serializer_class = TodoModelSerializer
-    filterset_class = ToDoFilter
-    pagination_class = TodoLimitOffsetPagination
+    queryset = ToDo.objects.all()
+    # pagination_class = ToDoPagination
+    # filter_backends = [DjangoFilterBackend]
+    filterset_class= ToDoFilter
 
     def destroy(self, request, *args, **kwargs):
-        todo = self.get_object()
-        todo.active = False
-        todo.save()
-        return Response(status=status.HTTP_200_OK)
+        try:
+            instance = self.get_object()
+            instance.is_active = False
+            instance.save()
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)

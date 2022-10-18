@@ -1,43 +1,11 @@
+import React from 'react';
 
-
-import React from "react";
-import {
-Box,
-Container,
-Row,
-Column,
-Heading,
-} from "./FooterStyles";
-
-export const Footer = () => {
-return (
-	<Box>
-
-	<Container>
-		<Row>
-		<Column>
-			<Heading>About Us</Heading>
-
-		</Column>
-		<Column>
-			<Heading>Services</Heading>
-
-		</Column>
-		<Column>
-			<Heading>Contact Us</Heading>
-
-		</Column>
-		<Column>
-			<Heading>Social Media</Heading>
-
-		</Column>
-		</Row>
-	</Container>
-		<h3 style={{ color: "green",
-				textAlign: "center",
-				marginTop: "auto" }}>
-	Copyright &copy; GeekShop-MagdychSV 2022
-	</h3>
-	</Box>
-);
-};
+export default function Footer() {
+  return (
+    <footer className="footer mt-auto py-3">
+      <div className="container">
+        <span className="text-muted">GeekBrains 2022 </span>
+      </div>
+    </footer>
+  );
+}

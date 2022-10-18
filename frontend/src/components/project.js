@@ -1,35 +1,61 @@
 import React from 'react'
+import {
+  Link,
+  useParams
+} from "react-router-dom";
 
-const ProjectItem = ({project}) => {
+
+const ProjectListItem = ({item}) => {
+    let link_to = `/project/${item.id}`
     return (
         <tr>
-            <td>
-                {project.name}
-            </td>
-            <td>
-                {project.link}
-            </td>
-            <td>
-                {project.user}
-            </td>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.repository}</td>
+            <td><Link to={link_to}>Detail</Link></td>
         </tr>
     )
 }
-const ProjectList = ({projects}) => {
-    return (
-        <table>
-            <th>
-                name
-            </th>
-            <th>
-                Link
-            </th>
-            <th>
-                User
-            </th>
 
-            {projects.map((project_) => <ProjectItem project={project_}/>)}
+const ProjectList = ({items}) => {
+    //console.log(users)
+    return (
+        <table className="table">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Repository</th>
+                <th></th>
+            </tr>
+            {items.map((item) => <ProjectListItem item={item} />)}
         </table>
     )
 }
-export default ProjectList
+
+const ProjectUserItem = ({item}) => {
+    return (
+        <li>
+        {item.username} ({item.email})
+    </li>
+    )
+}
+
+const ProjectDetail = ({getProject, item}) => {
+    let { id } = useParams();
+    getProject(id)
+    let users = item.users ? item.users : []
+    console.log(id)
+    return (
+        <div>
+            <h1>{item.name}</h1>
+            Repository: <a href={item.repository}>{item.repository}</a>
+            <p></p>
+            Users:
+            <ol>
+            {users.map((user) => <ProjectUserItem item={user} />)}
+            </ol>
+        </div>
+    )
+}
+
+export {ProjectDetail, ProjectList}

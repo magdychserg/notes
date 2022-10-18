@@ -1,7 +1,7 @@
 import django_filters
 from django_filters import rest_framework as filters
 
-from todo.models import Project, Todo
+from todo.models import Project, ToDo
 
 
 class ProjectFilter(filters.FilterSet):
@@ -9,12 +9,12 @@ class ProjectFilter(filters.FilterSet):
 
    class Meta:
        model = Project
-       fields = ['name','user']
+       fields = ['name','users']
 
 class ToDoFilter(filters.FilterSet):
     created__gt = django_filters.DateFilter(field_name='created', lookup_expr='gte')
     created__lt = django_filters.DateFilter(field_name='created', lookup_expr='lte')
 
     class Meta:
-       model = Todo
+       model = ToDo
        fields = ['project']

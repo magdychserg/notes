@@ -1,7 +1,7 @@
 from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import  ModelSerializer
 
-from todo.models import Project, Todo
+from todo.models import Project, ToDo
 
 
 class ProjectModelSerializer(ModelSerializer):
@@ -14,6 +14,6 @@ class TodoModelSerializer(ModelSerializer):
 
 
     class Meta:
-        model = Todo
+        model = ToDo
         fields = '__all__'
 

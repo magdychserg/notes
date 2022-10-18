@@ -2,11 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import status
-from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView, get_object_or_404
-from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
+from rest_framework.generics import  get_object_or_404
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
+
 
 from .serializers import UserModelSerializer
 from .models import User
