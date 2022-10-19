@@ -1,19 +1,19 @@
 import React from 'react'
 
 
-const ToDoListItem = ({item}) => {
+const ToDoListItem = ({todo}) => {
     return (
         <tr>
-            <td>{item.id}</td>
-            <td>{item.text}</td>
-            <td>{item.create}</td>
-            <td>{item.project}</td>
-            <td>{item.creator}</td>
+            <td>{todo.id}</td>
+            <td>{todo.text}</td>
+            <td>{todo.create}</td>
+            <td>{todo.project}</td>
+            <td>{todo.creator}</td>
         </tr>
     )
 }
 
-const ToDoList = ({items}) => {
+const ToDoList = ({todos}) => {
     //console.log(users)
     return (
         <table className="table">
@@ -24,7 +24,7 @@ const ToDoList = ({items}) => {
                 <th>Project</th>
                 <th>Creator</th>
             </tr>
-            {items.map((item) => <ToDoListItem item={item} />)}
+            {todos.map((todo) => <ToDoListItem todo={todo} />)}
         </table>
     )
 }

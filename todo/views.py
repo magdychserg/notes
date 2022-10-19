@@ -2,11 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import status
-from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from rest_framework.pagination import  PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from todo.filters import ProjectFilter, ToDoFilter
+from todo.filters import  ToDoFilter
 from todo.models import Project, ToDo
 from todo.serializers import TodoModelSerializer, ProjectModelSerializer
 

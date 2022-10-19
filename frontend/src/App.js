@@ -89,7 +89,7 @@ class App extends React.Component {
         axios.get(get_url('projects/'), {headers})
             .then(response => {
 
-                this.setState({projects: response.data})
+                this.setState({projects: response.data.results})
             }).catch(error =>
             console.log(error)
         )
@@ -97,7 +97,7 @@ class App extends React.Component {
         axios.get(get_url('todos/'), {headers})
             .then(response => {
 
-                this.setState({todos: response.data})
+                this.setState({todos: response.data.results})
             }).catch(error =>
             console.log(error)
         )
@@ -131,7 +131,7 @@ class App extends React.Component {
                                    element={<LoginForm login={(username, password) => this.login(username, password)}/>}/>
 
                             <Route path="/project/:id" element={<ProjectDetail getProject={(id) => this.getProject(id)}
-                                       item={this.state.project}/>}/>
+                                       project={this.state.project}/>}/>
                         </Routes>
                     </div>
                 </main>
