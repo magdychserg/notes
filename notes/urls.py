@@ -15,8 +15,46 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from todo.views import ProjectViewSet, ToDoViewSet
+from users.views import UserAPIView, UserListAPIView
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Notes',
+        default_version='v1',
+        description='Documentations',
+        contact=openapi.Contact(email='admi@mail.ru'),
+        license=openapi.License(name='MIT LICENSE'),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
+router = DefaultRouter()
+
+router.register('projects', ProjectViewSet)
+
+router.register('todos', ToDoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('', include(router.urls)),
+    path('<str:version>/users/', UserListAPIView.as_view()),
+    path('users/', UserAPIView.as_view()),
+    path('api-token-auth/', obtain_auth_token),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('swagger<str:format>/', schema_view.without_ui()),
+    path('swagger/', schema_view.with_ui('swagger')),
+    path('redoc/', schema_view.with_ui('redoc')),
+
 ]
