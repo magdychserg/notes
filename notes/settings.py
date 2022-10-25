@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
 
 ]
 
@@ -135,8 +136,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
 
     ],
-    'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
 
     'DEFAULT_PARSER_CLASSES': (
@@ -147,11 +148,17 @@ REST_FRAMEWORK = {
         # Any other parsers
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'],
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.HostNameVersioning', #http://v1.example.com/book
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
 }
